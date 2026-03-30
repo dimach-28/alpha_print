@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlphaPrint - 3D Printing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo img {
+            max-width: 200px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .link-item {
+            background: rgba(40, 40, 60, 0.9);
+            border-radius: 12px;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            transform: scale(1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .link-item:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            background: rgba(50, 50, 70, 0.95);
+        }
+
+        .link-item:hover::before {
+            left: 100%;
+        }
+
+        .link-item:hover .icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .link-item:hover .icon svg,
+        .link-item:hover .icon img {
+            filter: drop-shadow(0 0 8px currentColor);
+        }
+
+        .icon {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .icon svg {
+            width: 22px;
+            height: 22px;
+            transition: all 0.3s ease;
+        }
+
+        .icon img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+
+        .telegram-icon { color: #0088cc; }
+
+        .link-text {
+            flex: 1;
+            text-align: left;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .link-item:hover .link-text {
+            transform: translateX(5px);
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .info {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .info p {
+            color: white;
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 5px 0;
+        }
+
+        .info .price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #FFD966;
+            margin-bottom: 8px;
+        }
+
+        .info .delivery {
+            font-size: 14px;
+        }
+
+        .footer {
+            color: white;
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 10px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .link-item {
+            animation: slideInUp 0.6s ease-out both;
+        }
+
+        .link-item:nth-child(1) { animation-delay: 0.1s; }
+        .link-item:nth-child(2) { animation-delay: 0.2s; }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .link-item {
+                padding: 12px 15px;
+            }
+            
+            .logo img {
+                max-width: 160px;
+            }
+            
+            .link-item:hover {
+                transform: scale(1.03) translateY(-3px);
+            }
+            
+            .info {
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="alphaprint.png" alt="AlphaPrint - 3D Printing">
+        </div>
+        
+        <div class="links">
+            <a href="https://t.me/Dimach_28" class="link-item" target="_blank">
+                <div class="icon telegram-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.191l-1.84 8.68c-.129.585-.466.73-.945.455l-2.61-1.92-1.256 1.21c-.14.14-.26.26-.534.26l.188-2.67 4.827-4.36c.195-.175-.042-.272-.305-.1l-5.964 3.76-2.577-.8c-.625-.195-.637-.625.132-.92l10.11-3.87c.52-.195.975.146.82.92z"/>
+                    </svg>
+                </div>
+                <div class="link-text">Написать в Telegram</div>
+            </a>
+            
+            <a href="https://www.avito.ru/obninsk/predlozheniya_uslug/3d_pechat_pechat_na_zakaz_7989989722?utm_campaign=native&utm_medium=item_page_android&utm_source=soc_sharing_seller" class="link-item" target="_blank">
+                <div class="icon">
+                    <img src="avito.png" alt="Avito">
+                </div>
+                <div class="link-text">Авито - 3D печать</div>
+            </a>
+        </div>
+
+        <div class="info">
+            <p class="price">💰 Цена договорная</p>
+            <p class="delivery">📦 Доставка по всей России</p>
+        </div>
+        
+        <div class="footer">
+            AlphaPrint | 3D печать на заказ
+        </div>
+    </div>
+</body>
+</html>
